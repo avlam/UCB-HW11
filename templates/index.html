@@ -8,51 +8,88 @@
                     <title>UCBE HW11</title>
                     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
                         <style type="text/css">
+                            body{
+                                background-color: #291657;
+                                color: #c0c0c0;
+                            }
+                        
                             img {
                                 width:100%;
                                 height: auto;
+                            }
+                        
+                            .content {
+                                border-radius: 0.5em;
+                                background-color: #432f75;
+                                margin: 15px 0.25em 15px 0.25em;
+                                padding: 1em;
+                            }
+                        
+                            .header {
+                                padding: 1em;
+                                margin-bottom: 0.25em;
+                                color: #c0c0c0;
+                                background-color: #432f75;
+                            }
+                        
+                            .footer {
+                                color: #c0c0c0;
+                                margin-top: 1em;
+                                padding: 0.5em;
+                                text-align: center;
+                                background-color: #432f75;
                             }
                         </style>
     </head>
     
     <body>
-        <div class="container">
+        <div class="text-center header">
             <h1>Mission to Mars</h1>
             <a href="/api/v1.0/scrape" class="btn btn-info" role="button">Refresh Data</a>
+        </div>
+        <div class="container">
             <div class="row">
-                <div class="col-md-12"><h2>Latest News</h2>
+                <div class="col-md-12">
+                    <div class="content">
+                    <h2>Latest News</h2>
                     <h3>{{ mars['latest_news']['title'] }}</h3>
                         <p> {{ mars['latest_news']['description'] }} </p>
+                        </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-9">
+                    <div class="content">
                     <h2>Featured Mars Image</h2>
                     <img src={{ mars['featured_image'] }} alt="current featured mars image" />
+                    </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
+                <div class="content">
                 <h2>Mars Weather</h2>
                 <p>{{ mars['weather'] }}</p>
-                
+                </div>
+                <div class="content">
                 <h2>Mars Facts</h2>
                 {{ mars['facts']|safe }}
+                </div>
                 </div>
             </div>
             <div class="row">
             {% for hemisphere in mars['hemispheres'] %}
             
             <div class="col-md-6">
+                <div class="content">
                 <h2>{{ hemisphere['title'] }}</h2>
                 <img src={{ hemisphere['jpg_url'] }} alt={{ hemisphere['title'] }} />
+                </div>
             </div>
             
             {% endfor %}
             </div>
-            <div class="row">
-            <div class="col-md-12">
+        </div>
+        <div class="footer">
             <p>Feb 2018 | Alexander Lam</p>
-            </div>
-            </div>
         </div>
     </body>
     
