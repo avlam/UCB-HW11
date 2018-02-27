@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                    <title>UCBE HW11</title>
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+                        <style type="text/css">
+                            img {
+                                width:100%;
+                                height: auto;
+                            }
+                        </style>
+    </head>
+    
+    <body>
+        <div class="container">
+            <h1>Mission to Mars</h1>
+            <a href="/api/v1.0/scrape" class="btn btn-info" role="button">Refresh Data</a>
+            <div class="row">
+                <div class="col-md-12"><h2>Latest News</h2>
+                    <h3>{{ mars['latest_news']['title'] }}</h3>
+                        <p> {{ mars['latest_news']['description'] }} </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <h2>Featured Mars Image</h2>
+                    <img src={{ mars['featured_image'] }} alt="current featured mars image" />
+                </div>
+                <div class="col-md-4">
+                <h2>Mars Weather</h2>
+                <p>{{ mars['weather'] }}</p>
+                
+                <h2>Mars Facts</h2>
+                {{ mars['facts']|safe }}
+                </div>
+            </div>
+            <div class="row">
+            {% for hemisphere in mars['hemispheres'] %}
+            
+            <div class="col-md-6">
+                <h2>{{ hemisphere['title'] }}</h2>
+                <img src={{ hemisphere['jpg_url'] }} alt={{ hemisphere['title'] }} />
+            </div>
+            
+            {% endfor %}
+            </div>
+            <div class="row">
+            <div class="col-md-12">
+            <p>Feb 2018 | Alexander Lam</p>
+            </div>
+            </div>
+        </div>
+    </body>
+    
+</html>

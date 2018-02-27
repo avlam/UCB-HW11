@@ -2,6 +2,7 @@ import pandas as pd
 import requests
 from splinter import Browser
 from bs4 import BeautifulSoup as bs
+import pymongo
 
 source_urls = {
     'news' : 'https://mars.nasa.gov/news/',
@@ -63,7 +64,7 @@ def retrieve_facts():
     browser = Browser("chrome",headless=True)
     browser.visit(source_urls['facts'])
     mars_facts_df = pd.read_html(browser.html)[0]
-    table_string = mars_facts_df.to_html()
+    table_string = mars_facts_df.to_html(header=False,index=False)
     return table_string
 
 def retrieve_hemispheres():
@@ -102,3 +103,10 @@ def scrape():
         'hemispheres' : retrieve_hemispheres() 
     }
     return content
+
+def mongo_mars():
+    conn = "mongodb://localhost:27017"
+    client = pymongo.MongoClient(conn)
+    db = client.mars
+    db.mars.remove()
+    db.mars.insert_one(scrape())
